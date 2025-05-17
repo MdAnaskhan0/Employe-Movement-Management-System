@@ -13,16 +13,16 @@
 <header>
     <nav>
         <a href="/ManagementProject/index.php"><img src="/ManagementProject/assets/images/logo.png" alt="logo"></a>
-        <a href="/ManagementProject/index.php">Employee Movement Management System</a>
-        <a href="/ManagementProject/index.php">Home</a> 
+        <a href="/ManagementProject/admin/index.php">Employee Movement Management System</a>
+        <a href="/ManagementProject/admin/index.php">Home</a> 
+        <a href="/ManagementProject/admin/pages/dashboard.php">Dashboard</a>
         <?php if (isset($_SESSION['username'])): ?>
             <a href="/ManagementProject/pages/my_info.php">
                 Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>
             </a> 
-            <a href="/ManagementProject/pages/logout.php">Logout</a>
+            <a href="/ManagementProject/admin/pages/logout.php">Logout</a>
         <?php else: ?>
-            <a href="/ManagementProject/pages/login.php">Login</a> 
-            <a href="/ManagementProject/pages/signup.php">Signup</a>
+            <a href="/ManagementProject/admin/pages/admin_login.php">Login</a> 
         <?php endif; ?>
     </nav>
 </header>

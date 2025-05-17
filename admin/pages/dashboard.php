@@ -13,7 +13,7 @@ $total_users = $row['total'];
     <h2>Dashboard</h2>
     
     <div class="dashboard-cards">
-        <div class="card" onclick="location.href='/ManagementProject/pages/userinfo.php'">
+        <div class="card" onclick="location.href='/ManagementProject/admin/pages/all_use_info.php'">
             <h3>Total Users</h3>
             <p><?php echo $total_users; ?></p>
         </div>

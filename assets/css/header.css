@@ -1,0 +1,123 @@
+/* Mobile-first header styles */
+header {
+    background-color: #2c3e50; /* Professional dark blue */
+    color: white;
+    padding: 0.8rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.3rem 0;
+    transition: color 0.2s ease;
+    text-align: center;
+}
+
+nav a:hover {
+    color: #3498db; /* Light blue for hover */
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+nav img {
+    height: 40px;
+    width: auto;
+}
+
+/* System title style */
+nav a:nth-child(2) {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #ecf0f1;
+}
+
+/* User greeting style */
+nav a:nth-last-child(2) {
+    color: #ffffff; /* Yellow for username */
+    font-weight: 500;
+}
+
+/* Login/Signup button styles */
+nav a:nth-last-child(1),
+nav a:nth-last-child(2):not(:nth-last-child(1)) {
+    background-color: #3498db;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-top: 0.3rem;
+}
+
+nav a:nth-last-child(1):hover,
+nav a:nth-last-child(2):not(:nth-last-child(1)):hover {
+    background-color: #2980b9;
+    color: white;
+}
+
+/* Tablet and larger screens */
+@media (min-width: 768px) {
+    nav {
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    nav a {
+        padding: 0.5rem 0.8rem;
+    }
+    
+    /* Logo and system title grouping */
+    nav a:first-child,
+    nav a:nth-child(2) {
+        order: 1;
+    }
+    
+    /* Home link */
+    nav a:nth-child(3) {
+        order: 2;
+        margin-left: auto;
+    }
+    
+    /* User greeting and auth links */
+    nav a:nth-child(n+4) {
+        order: 3;
+    }
+}
+
+/* Desktop screens */
+@media (min-width: 1024px) {
+    header {
+        padding: 0.8rem 2rem;
+    }
+    
+    nav {
+        flex-wrap: nowrap;
+        gap: 1.5rem;
+    }
+    
+    nav a {
+        font-size: 1.05rem;
+        white-space: nowrap;
+    }
+    
+    nav img {
+        height: 45px;
+    }
+    
+    /* System title */
+    nav a:nth-child(2) {
+        font-size: 1.2rem;
+    }
+}
