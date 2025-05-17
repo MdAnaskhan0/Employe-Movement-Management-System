@@ -1,4 +1,6 @@
-<?php include('includes/header.php'); ?>
+<?php 
+session_start();
+include('includes/header.php'); ?>
 <main>
     <h2>Welcome!</h2>
     <p>This is your management system home page.</p>

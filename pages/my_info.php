@@ -51,7 +51,7 @@ $stmt->close();
     <!-- Update user Status button -->
     <button onclick="location.href='/ManagementProject/pages/movement_status.php'">Update Status</button>
     <button onclick="alert('Feature Coming Soon!')">Today Tasks</button>
-     <button onclick="alert('Feature Coming Soon!')">Reports</button>
+     <button onclick="location.href='/ManagementProject/pages/user_report.php'">Reports</button>
     
 </main>
 
