@@ -11,13 +11,22 @@ if (!isset($_SESSION['userID']) || !isset($_SESSION['username'])) {
     exit;
 }
 
+// Get last punch record for the user
+$lastPunch = null;
+$lastPunchStmt = $conn->prepare("SELECT punchTime FROM movementData WHERE userID = ? ORDER BY datetime DESC LIMIT 1");
+$lastPunchStmt->bind_param("i", $_SESSION['userID']);
+$lastPunchStmt->execute();
+$lastPunchStmt->bind_result($lastPunch);
+$lastPunchStmt->fetch();
+$lastPunchStmt->close();
+
+// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userID = $_SESSION['userID'];
     $username = $_SESSION['username'];
-    $datetime = date('Y-m-d H:i:s'); // Auto-set current date/time
+    $datetime = date('Y-m-d H:i:s');
     $visitingStatus = $_POST['visiting_status'];
 
-    // Handle "others" for place and party
     $placeName = $_POST['place_name'] === 'others' ? $_POST['place_name_other'] : $_POST['place_name'];
     $partyName = $_POST['party_name'] === 'others' ? $_POST['party_name_other'] : $_POST['party_name'];
 
@@ -32,6 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         $message = "Movement data recorded successfully.";
+        // Update last punch after insert
+        $lastPunch = $punchTime;
     } else {
         $message = "Error: " . $stmt->error;
     }
@@ -44,15 +55,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if ($message): ?>
         <p style="color: green;"><?php echo htmlspecialchars($message); ?></p>
     <?php endif; ?>
-    <form method="post">
 
+    <?php if ($lastPunch): ?>
+        <!-- <p><strong>Last Punch:</strong> <?php echo htmlspecialchars($lastPunch); ?></p> -->
+    <?php endif; ?>
+
+    <form method="post">
         <label>Punch Time:</label><br>
         <select name="punch_time" required>
             <option value="">Select option</option>
-            <option value="In time">In time</option>
-            <option value="Out time">Out time</option>
+            <?php if ($lastPunch !== 'In time'): ?>
+                <option value="In time">Punch in</option>
+            <?php endif; ?>
+            <?php if ($lastPunch !== 'Out time'): ?>
+                <option value="Out time">Punch out</option>
+            <?php endif; ?>
         </select><br><br>
-        
+
         <label for="visiting_status">Visiting Status:</label><br>
         <select name="visiting_status" required>
             <option value="">Select option</option>

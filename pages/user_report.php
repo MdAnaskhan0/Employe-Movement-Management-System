@@ -59,40 +59,42 @@ $currentTime = new DateTime();
         </tr>
     </table>
 
-    <!-- Update user Status button -->
     <br>
     <button onclick="location.href='/ManagementProject/pages/movement_status.php'">Update Status</button>
 
-    <!-- Show User all movements -->
     <h3>My Movement Records</h3>
     <?php if (count($movements) > 0): ?>
         <table border="1" cellpadding="5" cellspacing="0">
             <thead>
                 <tr>
-                    <th>Date/Time</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Punch Time</th>
                     <th>Visiting Status</th>
                     <th>Place</th>
                     <th>Party Name</th>
                     <th>Purpose</th>
                     <th>Remark</th>
-                    <th>Punch Time</th>
                     <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($movements as $move): 
-                    $recordTime = new DateTime($move['datetime']);
-                    $interval = $currentTime->getTimestamp() - $recordTime->getTimestamp();
+                    $recordDateTime = new DateTime($move['datetime']);
+                    $date = $recordDateTime->format('Y-m-d');
+                    $time = $recordDateTime->format('H:i:s');
+                    $interval = $currentTime->getTimestamp() - $recordDateTime->getTimestamp();
                     $canEdit = ($interval <= 600) && ($interval >= 0); // within 10 minutes
                 ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($move['datetime']); ?></td>
+                        <td><?php echo $date; ?></td>
+                        <td><?php echo $time; ?></td>
+                        <td><?php echo htmlspecialchars($move['punchTime']); ?></td>
                         <td><?php echo htmlspecialchars($move['visitingStatus']); ?></td>
                         <td><?php echo htmlspecialchars($move['placeName']); ?></td>
                         <td><?php echo htmlspecialchars($move['partyName']); ?></td>
                         <td><?php echo htmlspecialchars($move['purpose']); ?></td>
                         <td><?php echo htmlspecialchars($move['remark']); ?></td>
-                        <td><?php echo htmlspecialchars($move['punchTime']); ?></td>
                         <td>
                             <?php if ($canEdit): ?>
                                 <a href="edit_movement.php?datetime=<?php echo urlencode($move['datetime']); ?>">Edit</a>

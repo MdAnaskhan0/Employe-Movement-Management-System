@@ -80,7 +80,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <main>
     <h2>Edit Movement Record</h2>
+
+    <?php
+        $recordDateTime = new DateTime($record['datetime']);
+        $date = $recordDateTime->format('Y-m-d');
+        $time = $recordDateTime->format('H:i:s');
+    ?>
+
     <form method="post">
+        <label>Date:</label><br>
+        <input type="text" value="<?php echo $date; ?>" readonly><br><br>
+
+        <label>Time:</label><br>
+        <input type="text" value="<?php echo $time; ?>" readonly><br><br>
+
         <label>Visiting Status:</label><br>
         <input type="text" name="visitingStatus" value="<?php echo htmlspecialchars($record['visitingStatus']); ?>" required><br><br>
 
@@ -100,8 +113,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" name="punchTime" value="<?php echo htmlspecialchars($record['punchTime']); ?>" required><br><br>
 
         <input type="submit" value="Update Record">
-        <a href="profile.php" style="margin-left: 10px;">Cancel</a>
+        <a href="my_info.php" style="margin-left: 10px;">Cancel</a>
     </form>
 </main>
+
 
 <?php include('../includes/footer.php'); ?>

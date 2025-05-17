@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($stmt->execute()) {
                 $_SESSION['username'] = $username;
-                header("Location: dashboard.php");
+                header("Location: my_info.php");
                 exit;
             } else {
                 $message = "Error during registration.";
